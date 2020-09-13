@@ -1,0 +1,61 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-plugin-blank-line",
+    "tslint-react",
+    "tslint-sonarts",
+    "tslint-no-circular-imports",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "blank-line": [true, "ignore-imports"],
+    "cognitive-complexity": {
+      "severity": "warning"
+    },
+    "interface-name": [true, "never-prefix"],
+    "jsx-ban-props": [true, ["style", "Avoid inline styles and consider other means for styling your components"]],
+    "jsx-no-lambda": true,
+    "max-classes-per-file": [true, 3],
+    "max-union-size": [true, 100],
+    "member-ordering": [
+      true,
+      {
+        "alphabetize": true,
+        "order": [
+          "public-static-field",
+          "public-static-method",
+          "protected-static-field",
+          "protected-static-method",
+          "private-static-field",
+          "private-static-method",
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
+          "public-constructor",
+          "protected-constructor",
+          "private-constructor",
+          "protected-instance-method",
+          "private-instance-method",
+          "public-instance-method"
+        ]
+      }
+    ],
+    "no-any": true,
+    "no-big-function": [true, 1000],
+    "no-consecutive-blank-lines": true,
+    "no-floating-promises": true,
+    "no-implicit-dependencies": [false],
+    "no-nested-template-literals": false,
+    "no-shadowed-variable": false,
+    "no-object-literal-type-assertion": false,
+    "no-submodule-imports": [false],
+    "no-switch-case-fall-through": true,
+    "no-unused-expression": [true, "allow-fast-null-checks"],
+    "object-literal-sort-keys": [true, "ignore-case"],
+    "only-arrow-functions": true,
+    "ordered-imports": true,
+    "quotemark": [true, "avoid-escape", "jsx-double", "single"],
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "variable-name": [true, "allow-leading-underscore", "allow-pascal-case", "ban-keywords", "check-format"]
+  }
+}
