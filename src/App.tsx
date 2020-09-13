@@ -5,7 +5,17 @@ import ItemsPerPageSelector from "./ItemsPerPageSelector";
 import PaginatedGrid from "./PaginatedGrid";
 import {StateContext} from "./state";
 import TextField from '@material-ui/core/TextField';
+import {makeStyles} from "@material-ui/core/styles";
 import './App.css';
+
+const useStyles = makeStyles({
+  input: {
+    margin: '20px'
+  },
+  labelRoot: {
+    padding: '20px'
+  }
+});
 
 const App: React.FC = () => {
 
@@ -14,6 +24,7 @@ const App: React.FC = () => {
   const [perPage, setPerPage] = useState(30);
   const { state, dispatch } = useContext(StateContext);
   const { owner, repo } = state;
+  const classes = useStyles()
 
   const getIssueCount = (per_page: number): void => {
     fetch(`http://localhost:8000/issues/${owner}/${repo}/count`)
@@ -51,6 +62,10 @@ const App: React.FC = () => {
           variant='outlined'
           onChange={(e) => dispatch({ type: 'repo', value: e.target.value})}
           value={repo}
+          InputProps={{ className: classes.input }}
+          InputLabelProps={{classes: {
+            root: classes.labelRoot
+          }}}
         />
         <TextField
           required id='owner'
@@ -58,11 +73,16 @@ const App: React.FC = () => {
           variant='outlined'
           onChange={(e) => dispatch({ type: 'owner', value: e.target.value})}
           value={owner}
+          InputProps={{ className: classes.input }}
+          InputLabelProps={{classes: {
+            root: classes.labelRoot
+          }}}
         />
         <Button
           variant='contained'
           color='primary'
           onClick={() => getIssues()}
+          className={classes.input}
         >Get issues</Button>
       </form>
       <ItemsPerPageSelector

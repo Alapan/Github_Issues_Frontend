@@ -27,8 +27,8 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 800
+  root: {
+    margin: '20px 40px 10px 40px'
   }
 });
 
@@ -64,8 +64,9 @@ const IssueEvents: React.FC<IssueEventsProps> = (props: IssueEventsProps) => {
   }, []);
 
   return (
+    <div className={classes.root}>
     <TableContainer component={Paper}>
-      <Table className={classes.table}>
+      <Table>
         <TableHead>
           <TableRow>
             <StyledTableCell>ID</StyledTableCell>
@@ -90,6 +91,7 @@ const IssueEvents: React.FC<IssueEventsProps> = (props: IssueEventsProps) => {
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
   );
 }
 

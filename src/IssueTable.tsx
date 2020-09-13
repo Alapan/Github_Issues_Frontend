@@ -28,8 +28,8 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 800
+  root: {
+    margin: '40px'
   }
 });
 
@@ -56,35 +56,36 @@ const IssueTable: React.FC<IssueTableProps> = (props: IssueTableProps) => {
     return null;
   }
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Number</StyledTableCell>
-            <StyledTableCell>Title</StyledTableCell>
-            <StyledTableCell>Created</StyledTableCell>
-            <StyledTableCell>State</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {issues.map((issue) => (
-            <StyledTableRow key={issue.id}>
-              <StyledTableCell>
-                <Link to={`issues/${owner}/${repo}/${issue.number}/events`}>
-                  {issue.number}
-                </Link>
-              </StyledTableCell>
-              <StyledTableCell>{issue.title}</StyledTableCell>
-              <StyledTableCell component='th' scope='row'>
-                {new Date(issue.created_at).toLocaleDateString()}
-              </StyledTableCell>
-              <StyledTableCell>{issue.state}</StyledTableCell>
-              <StyledTableCell>{issue.milestone}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div className={classes.root}>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Number</StyledTableCell>
+              <StyledTableCell>Title</StyledTableCell>
+              <StyledTableCell>Created</StyledTableCell>
+              <StyledTableCell>State</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {issues.map((issue) => (
+              <StyledTableRow key={issue.id}>
+                <StyledTableCell>
+                  <Link to={`issues/${owner}/${repo}/${issue.number}/events`}>
+                    {issue.number}
+                  </Link>
+                </StyledTableCell>
+                <StyledTableCell>{issue.title}</StyledTableCell>
+                <StyledTableCell component='th' scope='row'>
+                  {new Date(issue.created_at).toLocaleDateString()}
+                </StyledTableCell>
+                <StyledTableCell>{issue.state}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   )
 };
 
