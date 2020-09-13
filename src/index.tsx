@@ -4,15 +4,18 @@ import './index.css';
 import App from './App';
 import IssueEvents from "./IssueEvents";
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { StateProvider } from "./state";
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <Router>
-    <Switch>
-      <Route exact path='/' component={App} />
-      <Route path='/issues/:owner/:repo/:issue_id/events' component={IssueEvents}/>
-    </Switch>
-  </Router>,
+  <StateProvider>
+    <Router>
+      <Switch>
+        <Route exact path='/' component={App} />
+        <Route path='/issues/:owner/:repo/:issue_id/events' component={IssueEvents}/>
+      </Switch>
+    </Router>
+  </StateProvider>,
   document.getElementById('root')
 );
 

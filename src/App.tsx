@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import IssueTable from './IssueTable';
 import ItemsPerPageSelector from "./ItemsPerPageSelector";
 import PaginatedGrid from "./PaginatedGrid";
+import {StateContext} from "./state";
 import TextField from '@material-ui/core/TextField';
 import './App.css';
 
 const App: React.FC = () => {
 
-  const [repo, setRepo] = useState<String>('');
-  const [owner, setOwner] = useState<String>('');
   const [issues, setIssues] = useState<[]>([]);
   const [numberOfPages, setNumberOfPages] = useState<Number>(0);
+  const [perPage, setPerPage] = useState(30);
+  const { state, dispatch } = useContext(StateContext);
+  const { owner, repo } = state;
 
   const getIssueCount = (per_page: number): void => {
     fetch(`http://localhost:8000/issues/${owner}/${repo}/count`)
@@ -19,6 +21,7 @@ const App: React.FC = () => {
         countResult.json()
           .then((data) => {
             setNumberOfPages(Math.ceil(data.total_count / per_page));
+            setPerPage(per_page);
           });
       })
       .catch((err) => console.error(err));
@@ -28,6 +31,7 @@ const App: React.FC = () => {
     page = page ? page : 1;
     per_page = per_page ? per_page : 30;
     getIssueCount(per_page);
+
     fetch(`http://localhost:8000/issues/${owner}/${repo}/${page}/${per_page}`)
       .then(( issuesResult) => {
         issuesResult.json()
@@ -45,14 +49,14 @@ const App: React.FC = () => {
           required id='repo'
           label='Repository Name'
           variant='outlined'
-          onChange={(e) => setRepo(e.target.value)}
+          onChange={(e) => dispatch({ type: 'repo', value: e.target.value})}
           value={repo}
         />
         <TextField
           required id='owner'
           label='Owner'
           variant='outlined'
-          onChange={(e) => setOwner(e.target.value)}
+          onChange={(e) => dispatch({ type: 'owner', value: e.target.value})}
           value={owner}
         />
         <Button
@@ -67,6 +71,7 @@ const App: React.FC = () => {
       />
       <PaginatedGrid
         getIssues={getIssues}
+        per_page={perPage}
         total={parseInt(numberOfPages.toString())}
       ></PaginatedGrid>
       <IssueTable

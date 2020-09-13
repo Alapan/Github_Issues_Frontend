@@ -60,6 +60,7 @@ const IssueEvents: React.FC<IssueEventsProps> = (props: IssueEventsProps) => {
     fetch(`http://localhost:8000/events/${owner}/${repo}/${issue_id}`)
       .then((response) => response.json())
       .then((data) => setEvents(data));
+    // eslint-disable-next-line
   }, []);
 
   return (

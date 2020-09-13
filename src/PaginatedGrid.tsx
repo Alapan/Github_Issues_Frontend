@@ -4,7 +4,8 @@ import Pagination from '@material-ui/lab/Pagination';
 
 interface PaginatedGridProps {
   getIssues: (page? : number | null, per_page?: number | null) => void,
-  total: number
+  per_page: number,
+  total: number,
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +27,7 @@ const PaginatedGrid: React.FC<PaginatedGridProps> = (props: PaginatedGridProps) 
     <div className={classes.root}>
       <Pagination
         count={props.total}
-        onChange={(e, value) => props.getIssues(value)}
+        onChange={(e, value) => props.getIssues(value, props.per_page)}
         size='large'
       />
     </div>
