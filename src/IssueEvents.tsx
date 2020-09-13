@@ -7,7 +7,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {makeStyles, withStyles} from "@material-ui/core/styles";
-import {Link} from "react-router-dom";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -58,7 +57,7 @@ const IssueEvents: React.FC<IssueEventsProps> = (props: IssueEventsProps) => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/issues/${owner}/${repo}/${issue_id}/events`)
+    fetch(`http://localhost:8000/events/${owner}/${repo}/${issue_id}`)
       .then((response) => response.json())
       .then((data) => setEvents(data));
   }, []);
@@ -78,9 +77,7 @@ const IssueEvents: React.FC<IssueEventsProps> = (props: IssueEventsProps) => {
           {events.map((event: Event) => (
             <StyledTableRow key={event.id}>
               <StyledTableCell>
-                <Link to={`/events/${owner}/${repo}/${event.id}`}>
-                  {event.id}
-                </Link>
+                {event.id}
               </StyledTableCell>
               <StyledTableCell>{event.event}</StyledTableCell>
               <StyledTableCell>{event.actor.html_url}</StyledTableCell>
