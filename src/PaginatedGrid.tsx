@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 
 interface PaginatedGridProps {
+  getIssues: (page? : number) => void,
   total: number
 }
 
@@ -23,7 +24,11 @@ const PaginatedGrid: React.FC<PaginatedGridProps> = (props: PaginatedGridProps) 
 
   return (
     <div className={classes.root}>
-      <Pagination count={props.total} size="large" />
+      <Pagination
+        count={props.total}
+        onChange={(e, value) => props.getIssues(value)}
+        size='large'
+      />
     </div>
   );
 };

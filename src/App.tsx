@@ -24,9 +24,10 @@ const App: React.FC = () => {
       .catch((err) => console.error(err));;
   }
 
-  const getIssues = (): void => {
+  const getIssues = (page?: number): void => {
     getIssueCount();
-    fetch(`http://localhost:8000/issues/${owner}/${repo}`)
+    page = page ? page : 1;
+    fetch(`http://localhost:8000/issues/${owner}/${repo}/${page}`)
       .then(( issuesResult) => {
         issuesResult.json()
           .then((data) => {
@@ -56,10 +57,13 @@ const App: React.FC = () => {
         <Button
           variant='contained'
           color='primary'
-          onClick={getIssues}
+          onClick={() => getIssues()}
         >Get issues</Button>
       </form>
-      <PaginatedGrid total={parseInt(numberOfPages.toString())}></PaginatedGrid>
+      <PaginatedGrid
+        getIssues={getIssues}
+        total={parseInt(numberOfPages.toString())}
+      ></PaginatedGrid>
       <IssueTable
         issues={issues}
         owner={owner}
