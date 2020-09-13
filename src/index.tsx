@@ -8,15 +8,13 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <Switch>
-        <Route exact path='/' component={App} />
-        <Route path='/issues/:owner/:repo/:issue_id/events' component={IssueEvents}/>
-        <Route path='/events/:owner/:repo/:event_id' component={EventDetails}/>
-      </Switch>
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <Switch>
+      <Route exact path='/' component={App} />
+      <Route path='/issues/:owner/:repo/:issue_id/events' component={IssueEvents}/>
+      <Route path='/events/:owner/:repo/:event_id' component={EventDetails}/>
+    </Switch>
+  </Router>,
   document.getElementById('root')
 );
 

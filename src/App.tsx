@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import IssueTable from './IssueTable';
+import ItemsPerPageSelector from "./ItemsPerPageSelector";
 import PaginatedGrid from "./PaginatedGrid";
 import TextField from '@material-ui/core/TextField';
 import './App.css';
@@ -12,22 +13,22 @@ const App: React.FC = () => {
   const [issues, setIssues] = useState<[]>([]);
   const [numberOfPages, setNumberOfPages] = useState<Number>(0);
 
-  const getIssueCount = (): void => {
+  const getIssueCount = (per_page: number): void => {
     fetch(`http://localhost:8000/issues/${owner}/${repo}/count`)
       .then((countResult) => {
         countResult.json()
           .then((data) => {
-            // 10 results per page are shown
-            setNumberOfPages(Math.ceil(data.total_count / 10));
+            setNumberOfPages(Math.ceil(data.total_count / per_page));
           });
       })
-      .catch((err) => console.error(err));;
+      .catch((err) => console.error(err));
   }
 
-  const getIssues = (page?: number): void => {
-    getIssueCount();
+  const getIssues = (page?: number | null, per_page?: number | null): void => {
     page = page ? page : 1;
-    fetch(`http://localhost:8000/issues/${owner}/${repo}/${page}`)
+    per_page = per_page ? per_page : 30;
+    getIssueCount(per_page);
+    fetch(`http://localhost:8000/issues/${owner}/${repo}/${page}/${per_page}`)
       .then(( issuesResult) => {
         issuesResult.json()
           .then((data) => {
@@ -60,6 +61,10 @@ const App: React.FC = () => {
           onClick={() => getIssues()}
         >Get issues</Button>
       </form>
+      <ItemsPerPageSelector
+        getIssues={getIssues}
+        total={parseInt(numberOfPages.toString())}
+      />
       <PaginatedGrid
         getIssues={getIssues}
         total={parseInt(numberOfPages.toString())}

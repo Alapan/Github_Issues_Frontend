@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 
 interface PaginatedGridProps {
-  getIssues: (page? : number) => void,
+  getIssues: (page? : number | null, per_page?: number | null) => void,
   total: number
 }
 
