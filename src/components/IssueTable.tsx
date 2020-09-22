@@ -33,7 +33,7 @@ export const IssueTable = (props: IssueTableProps) => {
     const classes = useStyles();
     const { issues, owner, repo } = props;
 
-    if (!props.issues.length) {
+    if (!issues.length) {
         return null;
     }
     return (
