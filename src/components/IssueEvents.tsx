@@ -33,7 +33,7 @@ interface IssueEventsProps {
     };
 }
 
-export const IssueEvents: React.FC<IssueEventsProps> = (props: IssueEventsProps) => {
+export const IssueEvents = (props: IssueEventsProps) => {
     const classes = useStyles();
     const { issue_id, owner, repo } = props.match.params;
     const [events, setEvents] = useState([]);

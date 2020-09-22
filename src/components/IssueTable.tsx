@@ -29,7 +29,7 @@ interface IssueTableProps {
     repo: string;
 }
 
-export const IssueTable: React.FC<IssueTableProps> = (props: IssueTableProps) => {
+export const IssueTable = (props: IssueTableProps) => {
     const classes = useStyles();
     const { issues, owner, repo } = props;
 

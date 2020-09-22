@@ -20,7 +20,7 @@ interface ItemsPerPageSelectorProps {
     total: number;
 }
 
-export const ItemsPerPageSelector: React.FC<ItemsPerPageSelectorProps> = (
+export const ItemsPerPageSelector = (
     props: ItemsPerPageSelectorProps
 ) => {
     const handleChange = (event) => {

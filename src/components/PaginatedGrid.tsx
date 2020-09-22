@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const PaginatedGrid: React.FC<PaginatedGridProps> = (
+export const PaginatedGrid = (
     props: PaginatedGridProps
 ) => {
     const classes = useStyles();

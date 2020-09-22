@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const App: React.FC = () => {
+export const App = () => {
     const [issues, setIssues] = useState<[]>([]);
     const [numberOfPages, setNumberOfPages] = useState<number>(0);
     const [perPage, setPerPage] = useState(30);
