@@ -1,21 +1,10 @@
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import React, { useContext, useState } from 'react';
 import '../styles/App.css';
+import { InputForm } from './InputForm';
 import { IssueTable } from './IssueTable';
 import { ItemsPerPageSelector } from './ItemsPerPageSelector';
 import { PaginatedGrid } from './PaginatedGrid';
 import { StateContext } from '../state';
-
-const useStyles = makeStyles({
-    input: {
-        margin: '20px',
-    },
-    labelRoot: {
-        padding: '20px',
-    },
-});
 
 export const App = () => {
     const [issues, setIssues] = useState<[]>([]);
@@ -23,7 +12,6 @@ export const App = () => {
     const [perPage, setPerPage] = useState(30);
     const { state, dispatch } = useContext(StateContext);
     const { owner, repo } = state;
-    const classes = useStyles();
 
     const getIssueCount = (perPage: number): void => {
         fetch(`http://localhost:8000/issues/${owner}/${repo}/count`)
@@ -78,44 +66,13 @@ export const App = () => {
 
     return (
         <div className="App">
-            <form noValidate={true} autoComplete="off">
-                <TextField
-                    required={true}
-                    id="repo"
-                    label="Repository Name"
-                    variant="outlined"
-                    onChange={onRepoChange}
-                    value={repo}
-                    InputProps={{ className: classes.input }}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.labelRoot,
-                        },
-                    }}
-                />
-                <TextField
-                    required={true}
-                    id="owner"
-                    label="Owner"
-                    variant="outlined"
-                    onChange={onOwnerChange}
-                    value={owner}
-                    InputProps={{ className: classes.input }}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.labelRoot,
-                        },
-                    }}
-                />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={onClick}
-                    className={classes.input}
-                >
-                    Get issues
-                </Button>
-            </form>
+            <InputForm
+                onClick={onClick}
+                onOwnerChange={onOwnerChange}
+                onRepoChange={onRepoChange}
+                owner={owner}
+                repo={repo}
+            />
             <ItemsPerPageSelector
                 getIssues={getIssues}
                 total={parseInt(numberOfPages.toString(), 10)}
