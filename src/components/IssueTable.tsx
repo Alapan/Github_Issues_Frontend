@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { StyledTableCell, StyledTableRow } from './TableStyles';
+import { StyledTableCell, StyledTableRow } from './StyledTable';
 
 const useStyles = makeStyles({
     root: {
@@ -29,7 +29,7 @@ interface IssueTableProps {
     repo: string;
 }
 
-const IssueTable: React.FC<IssueTableProps> = (props: IssueTableProps) => {
+export const IssueTable: React.FC<IssueTableProps> = (props: IssueTableProps) => {
     const classes = useStyles();
     const { issues, owner, repo } = props;
 
@@ -74,4 +74,3 @@ const IssueTable: React.FC<IssueTableProps> = (props: IssueTableProps) => {
     );
 };
 
-export default IssueTable;

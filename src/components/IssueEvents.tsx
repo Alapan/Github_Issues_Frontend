@@ -6,7 +6,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useEffect, useState } from 'react';
-import { StyledTableCell, StyledTableRow } from './TableStyles';
+import { StyledTableCell, StyledTableRow } from './StyledTable';
 
 const useStyles = makeStyles({
     root: {
@@ -33,7 +33,7 @@ interface IssueEventsProps {
     };
 }
 
-const IssueEvents: React.FC<IssueEventsProps> = (props: IssueEventsProps) => {
+export const IssueEvents: React.FC<IssueEventsProps> = (props: IssueEventsProps) => {
     const classes = useStyles();
     const { issue_id, owner, repo } = props.match.params;
     const [events, setEvents] = useState([]);
@@ -81,5 +81,3 @@ const IssueEvents: React.FC<IssueEventsProps> = (props: IssueEventsProps) => {
         </div>
     );
 };
-
-export default IssueEvents;

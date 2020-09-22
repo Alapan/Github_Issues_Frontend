@@ -2,11 +2,11 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import React, { useContext, useState } from 'react';
-import './App.css';
-import IssueTable from './IssueTable';
-import ItemsPerPageSelector from './ItemsPerPageSelector';
-import PaginatedGrid from './PaginatedGrid';
-import { StateContext } from './state';
+import '../styles/App.css';
+import { IssueTable } from './IssueTable';
+import { ItemsPerPageSelector } from './ItemsPerPageSelector';
+import { PaginatedGrid } from './PaginatedGrid';
+import { StateContext } from '../state';
 
 const useStyles = makeStyles({
     input: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
 });
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
     const [issues, setIssues] = useState<[]>([]);
     const [numberOfPages, setNumberOfPages] = useState<number>(0);
     const [perPage, setPerPage] = useState(30);
@@ -129,5 +129,3 @@ const App: React.FC = () => {
         </div>
     );
 };
-
-export default App;
