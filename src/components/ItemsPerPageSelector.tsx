@@ -3,7 +3,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { StateContext } from '../state';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface ItemsPerPageSelectorProps {
-    getIssues: (page?: number | null, perPage?: number) => void;
+    getIssues: (page?: number | null, perPage?: number | null) => void;
     total: number;
 }
 
@@ -24,12 +25,14 @@ export const ItemsPerPageSelector = (
     props: ItemsPerPageSelectorProps
 ) => {
     const handleChange = (event) => {
-        setItemsPerPage(event.target.value);
-        props.getIssues(null, event.target.value);
+        dispatch({ type: 'itemsPerPage', value: event.target.value });
+        dispatch({ type: 'currentPage', value: 1 });
+        props.getIssues(1, event.target.value);
     };
 
     const classes = useStyles();
-    const [itemsPerPage, setItemsPerPage] = useState(30);
+    const { state, dispatch } = useContext(StateContext);
+    const { itemsPerPage } = state;
 
     if (props.total === 0) {
         return null;

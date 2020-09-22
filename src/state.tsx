@@ -1,36 +1,50 @@
 import React, { createContext, useReducer } from 'react';
 
 interface State {
+    currentPage: number;
+    itemsPerPage: number;
     owner: string;
     repo: string;
 }
 
 interface Action {
     type: string;
-    value: string;
+    value: string | number;
 }
 
 interface ContextProps {
-    dispatch: ({ type, value }: { type: string; value: string }) => void;
+    dispatch: ({ type, value }) => void;
     state: State;
 }
 
 const initialState = {
+    currentPage: 1,
+    itemsPerPage: 30,
     owner: '',
-    repo: '',
+    repo: ''
 };
 
 const reducer = (state: State, action: Action) => {
     switch (action.type) {
+        case 'currentPage':
+            return {
+                ...state,
+                currentPage: action.value as number,
+            };
+        case 'itemsPerPage':
+            return {
+                ...state,
+                itemsPerPage: action.value as number,
+            };
         case 'repo':
             return {
                 ...state,
-                repo: action.value,
+                repo: action.value as string,
             };
         case 'owner':
             return {
                 ...state,
-                owner: action.value,
+                owner: action.value as string,
             };
         default:
             return state;

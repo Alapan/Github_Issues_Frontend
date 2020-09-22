@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../styles/App.css';
 import { InputForm } from './InputForm';
 import { IssueTable } from './IssueTable';
@@ -9,9 +9,9 @@ import { StateContext } from '../state';
 export const App = () => {
     const [issues, setIssues] = useState<[]>([]);
     const [numberOfPages, setNumberOfPages] = useState<number>(0);
-    const [perPage, setPerPage] = useState(30);
     const { state, dispatch } = useContext(StateContext);
-    const { owner, repo } = state;
+    const { currentPage, itemsPerPage, owner, repo } = state;
+
 
     const getIssueCount = (perPage: number): void => {
         fetch(`http://localhost:8000/issues/${owner}/${repo}/count`)
@@ -20,7 +20,6 @@ export const App = () => {
                     .json()
                     .then((data) => {
                         setNumberOfPages(Math.ceil(data.total_count / perPage));
-                        setPerPage(perPage);
                     })
                     .catch((err) => {
                         throw new Error(err);
@@ -54,8 +53,6 @@ export const App = () => {
             });
     };
 
-    const onClick = () => getIssues();
-
     const onRepoChange = (e) => {
         dispatch({ type: 'repo', value: e.target.value });
     };
@@ -64,10 +61,16 @@ export const App = () => {
         dispatch({ type: 'owner', value: e.target.value });
     };
 
+    useEffect(() => {
+        if (owner && repo) {
+            getIssues(currentPage, itemsPerPage);
+        }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
     return (
         <div className="App">
             <InputForm
-                onClick={onClick}
+                onClick={getIssues}
                 onOwnerChange={onOwnerChange}
                 onRepoChange={onRepoChange}
                 owner={owner}
@@ -79,10 +82,14 @@ export const App = () => {
             />
             <PaginatedGrid
                 getIssues={getIssues}
-                perPage={perPage}
+                perPage={itemsPerPage}
                 total={parseInt(numberOfPages.toString(), 10)}
             />
-            <IssueTable issues={issues} owner={owner} repo={repo} />
+            <IssueTable
+                issues={issues}
+                owner={owner}
+                repo={repo}
+            />
         </div>
     );
 };
