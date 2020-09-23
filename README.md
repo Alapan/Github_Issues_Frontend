@@ -33,4 +33,4 @@ Runs Prettier to improve code formatting.
 
 ## Scope for further work
 
-An improvement to the existing features would be to save the current page when going back from the issue details to the issues list. In other words, if a user clicks on an issue in page 4, and views its events, then goes back, the user should return to page 4, instead of page 1 as it is currently. This will be done soon.
+Add filtering and search functionality.
