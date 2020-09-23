@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import '../styles/App.css';
+import { DOMAIN_NAME } from '../constants';
 import { InputForm } from './InputForm';
 import { IssueTable } from './IssueTable';
 import { ItemsPerPageSelector } from './ItemsPerPageSelector';
@@ -14,7 +15,7 @@ export const App = () => {
 
 
     const getIssueCount = (perPage: number): void => {
-        fetch(`http://localhost:8000/issues/${owner}/${repo}/count`)
+        fetch(`${DOMAIN_NAME}/issues/${owner}/${repo}/count`)
             .then((countResult) => {
                 countResult
                     .json()
@@ -36,7 +37,7 @@ export const App = () => {
         getIssueCount(perPage);
 
         fetch(
-            `http://localhost:8000/issues/${owner}/${repo}/${page}/${perPage}`
+            `${DOMAIN_NAME}/issues/${owner}/${repo}/${page}/${perPage}`
         )
             .then((issuesResult) => {
                 issuesResult
