@@ -21,7 +21,7 @@ const initialState = {
     currentPage: 1,
     itemsPerPage: 30,
     owner: '',
-    repo: ''
+    repo: '',
 };
 
 const reducer = (state: State, action: Action) => {
